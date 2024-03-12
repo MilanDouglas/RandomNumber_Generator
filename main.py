@@ -1,27 +1,17 @@
-import random
+import pyttsx3
+from PyPDF2 import PdfReader
 
-def get_choices():
-  player_choice = input("Enter a choice (rock, paper, scissors): ")
-  options = ["rock", "paper", "scissors"]
-  computer_choice = random.choice(options)
-  choices = {"player": player_choice, "computer": computer_choice}
-  return choices
+reader = PdfReader("book.pdf")
 
-def check_win(player, computer):
-  print(f"You chose {player}, computer chose {computer}")
-  if player == computer:
-    return "It's a tie!"
-  elif player == "rock" 
-    if computer == "scissors":
-      return "Rock smashes scissors! You win!"
-    else:
-      return "Paper covers rock! You lose."
-  elif player == "paper":
-    if computer == "rock":
-     return "Paper covers rock! You win!"
-    else:
-     return "Scissors cuts paper! You lose."
-  
-choices = get_choices()
-result = check_win(choices["player"], choices["computer"])
-print(result)
+reader = PdfReader("book.pdf")
+
+number_of_pages = len(reader.pages)
+page = reader.pages[0]
+text = page.extract_text()
+print(text)
+
+speaker = pyttsx3.init()
+speaker.save_to_file(text, 'book.mp3')
+speaker.runAndWait()
+
+speaker.stop()
